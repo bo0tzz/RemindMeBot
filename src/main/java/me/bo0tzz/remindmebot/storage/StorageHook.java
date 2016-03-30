@@ -35,6 +35,7 @@ public class StorageHook {
             }
             Gson gson = new Gson();
             reminderMap = gson.fromJson(json, new TypeToken<Map<Long, Reminder>>(){}.getType());
+            instance.debug("Loaded reminder data from file");
         } else {
             this.file = new File(".", "reminders.json");
             try {
@@ -46,8 +47,10 @@ public class StorageHook {
             }
             reminderMap = new HashMap<>();
             save();
+            instance.debug("Created new reminder data file");
         }
         //Create new save thread
+        instance.debug("StorageHook instantiated");
     }
 
     public void addReminder(Reminder reminder) {
