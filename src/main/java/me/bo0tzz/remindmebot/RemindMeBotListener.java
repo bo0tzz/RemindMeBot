@@ -36,7 +36,7 @@ public class RemindMeBotListener implements Listener {
 
     public void onCommandMessageReceived(CommandMessageReceivedEvent event) {
         instance.debug("Command received: " + event.getCommand());
-        commandMap.getOrDefault(event.getCommand(), (e) -> {});
+        commandMap.getOrDefault(event.getCommand(), (e) -> {}).accept(event);
     }
 
     private void remindMe(CommandMessageReceivedEvent event) {
