@@ -41,7 +41,13 @@ public class RemindMeBotListener implements Listener {
 
     private void remindMe(CommandMessageReceivedEvent event) {
         instance.debug("New reminder received: " + event.getArgsString());
-        String[] args = event.getArgsString().replace("that", "to").split("to");
+        String[] args = event.getArgsString().replace("that", "to").split("to", 2);
+        if (args.length != 2) {
+            event.getChat().sendMessage("Something went wrong while processing your reminder! Please try again", instance.getBot());
+            instance.debug("args length didn't equal 2 on reminder " + event.getArgsString());
+            return;
+        }
+
         DateGroup date = TimeParser.parse(args[0]);
         if (date == null) {
             event.getChat().sendMessage("It seems that the time you entered doesn't make sense. Please try again!", instance.getBot());
