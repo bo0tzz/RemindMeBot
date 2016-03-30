@@ -40,7 +40,6 @@ public class StorageHook {
             }
             Gson gson = new Gson();
             reminderMap = gson.fromJson(json, new TypeToken<ConcurrentHashMap<Long, Reminder>>(){}.getType());
-            instance.debug("Loaded reminder data from file");
         } else {
             this.file = new File(".", "reminders.json");
             try {
@@ -52,7 +51,6 @@ public class StorageHook {
             }
             reminderMap = new ConcurrentHashMap<>();
             save();
-            instance.debug("Created new reminder data file");
         }
 
         //Create new timer to save reminders to file
@@ -62,8 +60,6 @@ public class StorageHook {
                 save();
             }
         }, 600000L, 600000L);
-
-        instance.debug("StorageHook instantiated");
     }
 
     public void addReminder(Reminder reminder) {
