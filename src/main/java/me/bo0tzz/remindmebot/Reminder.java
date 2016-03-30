@@ -31,4 +31,8 @@ public class Reminder {
     public long getUnixTime() {
         return unixTime;
     }
+
+    public long getUserID() {
+        return userID;
+    }
 }
