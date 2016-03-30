@@ -42,6 +42,10 @@ public class RemindMeBotListener implements Listener {
     private void remindMe(CommandMessageReceivedEvent event) {
         instance.debug("New reminder received: " + event.getArgsString());
         String[] args = event.getArgsString().replace("that", "to").split("to", 2);
+        instance.debug("Listing string array");
+        for (String s : args) {
+            instance.debug(s);
+        }
         if (args.length != 2) {
             event.getChat().sendMessage("Something went wrong while processing your reminder! Please try again", instance.getBot());
             instance.debug("args length didn't equal 2 on reminder " + event.getArgsString());
