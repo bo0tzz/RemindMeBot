@@ -20,10 +20,10 @@ public class RemindMeBot {
 
     private RemindMeBot(String key) {
         instance = this;
-        storageHook = new StorageHook();
         this.bot = TelegramBot.login(key);
         bot.getEventsManager().register(new RemindMeBotListener());
         bot.startUpdates(false);
+        storageHook = new StorageHook();
         this.debug("Bot started!");
     }
 
