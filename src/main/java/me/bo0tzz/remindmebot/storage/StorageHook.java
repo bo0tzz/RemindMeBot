@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by boet on 30-3-2016.
@@ -34,7 +35,7 @@ public class StorageHook {
                 System.exit(1);
             }
             Gson gson = new Gson();
-            reminderMap = gson.fromJson(json, new TypeToken<Map<Long, Reminder>>(){}.getType());
+            reminderMap = gson.fromJson(json, new TypeToken<ConcurrentHashMap<Long, Reminder>>(){}.getType());
             instance.debug("Loaded reminder data from file");
         } else {
             this.file = new File(".", "reminders.json");
@@ -45,7 +46,7 @@ public class StorageHook {
                 instance.debug("Error creating new reminder data file!");
                 System.exit(1);
             }
-            reminderMap = new HashMap<>();
+            reminderMap = new ConcurrentHashMap<>();
             save();
             instance.debug("Created new reminder data file");
         }

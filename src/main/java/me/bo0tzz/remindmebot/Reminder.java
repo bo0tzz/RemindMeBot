@@ -4,10 +4,10 @@ package me.bo0tzz.remindmebot;
  * Created by boet on 30-3-2016.
  */
 public class Reminder {
-    private final String chatID;
-    private final String reminder;
-    private final long unixTime;
-    private final long userID;
+    private String chatID;
+    private String reminder;
+    private long unixTime;
+    private long userID;
 
     public Reminder(long unixTime, String chatID, String reminder, long userID) {
         this.unixTime = unixTime/1000;
