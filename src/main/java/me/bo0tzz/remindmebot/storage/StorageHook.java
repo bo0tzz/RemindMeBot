@@ -18,7 +18,7 @@ public class StorageHook {
     private final RemindMeBot instance;
 
     //Map<Unix time, Reminder>
-    private Map<Long, Reminder> reminderMap;
+    private final Map<Long, Reminder> reminderMap;
 
     public StorageHook() {
         this.instance = RemindMeBot.getInstance();

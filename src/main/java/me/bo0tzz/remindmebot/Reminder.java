@@ -1,9 +1,5 @@
 package me.bo0tzz.remindmebot;
 
-import com.joestelmach.natty.DateGroup;
-
-import java.util.Date;
-
 /**
  * Created by boet on 30-3-2016.
  */
