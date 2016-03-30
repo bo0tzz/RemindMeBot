@@ -4,11 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import me.bo0tzz.remindmebot.RemindMeBot;
 import me.bo0tzz.remindmebot.Reminder;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -17,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class StorageHook {
     private final File file;
     private final RemindMeBot instance;
+    private boolean retry = false;
 
     //Map<Unix time, Reminder>
     private final Map<Long, Reminder> reminderMap;
@@ -50,7 +54,15 @@ public class StorageHook {
             save();
             instance.debug("Created new reminder data file");
         }
-        //Create new save thread
+
+        //Create new timer to save reminders to file
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                save();
+            }
+        }, 600000L, 600000L);
+
         instance.debug("StorageHook instantiated");
     }
 
@@ -59,7 +71,29 @@ public class StorageHook {
     }
 
     public void save() {
-        //Save data to file
-        //THREADSAFE
+        if (!file.exists()) {
+            instance.debug("Reminders file not found! Creating file.");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                instance.debug("Error creating file. Exiting bot.");
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
+        Gson gson = new Gson();
+        String json = gson.toJson(reminderMap);
+        try {
+            FileUtils.writeStringToFile(file, json, Charsets.UTF_8);
+        } catch (IOException e) {
+            if (!retry) {
+                instance.debug("Error saving to file. Retrying.");
+                save();
+            } else {
+                instance.debug("Retried - failed again. Shutting down.");
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
     }
 }
