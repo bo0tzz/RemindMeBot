@@ -2,6 +2,7 @@ package me.bo0tzz.remindmebot.util;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
+import me.bo0tzz.remindmebot.RemindMeBot;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,10 +14,13 @@ import java.util.List;
 public class TimeParser {
 
     public static DateGroup parse(String value) {
+        RemindMeBot.getInstance().debug("Parsing string: " + value);
         List<DateGroup> groups = new Parser().parse(value);
         if (groups.isEmpty()) {
+            RemindMeBot.getInstance().debug("Groups list was empty");
             return null;
         }
+        RemindMeBot.getInstance().debug("Parsed as " + groups.get(0));
         return groups.get(0);
     }
 
