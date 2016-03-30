@@ -14,6 +14,10 @@ public class RemindMeBot {
     private static RemindMeBot instance;
     private final StorageHook storageHook;
 
+    public static void main(String[] args) {
+        new RemindMeBot(args[0]);
+    }
+
     private RemindMeBot(String key) {
         instance = this;
         storageHook = new StorageHook();
