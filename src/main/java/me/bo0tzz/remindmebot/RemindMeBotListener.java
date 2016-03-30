@@ -41,7 +41,7 @@ public class RemindMeBotListener implements Listener {
 
     private void remindMe(CommandMessageReceivedEvent event) {
         instance.debug("New reminder received: " + event.getArgsString());
-        String[] args = event.getArgsString().replace("that", "to").split("to", 2);
+        String[] args = event.getArgsString().replace("to", "that").split("that", 2);
         instance.debug("Listing string array");
         for (String s : args) {
             instance.debug(s);
