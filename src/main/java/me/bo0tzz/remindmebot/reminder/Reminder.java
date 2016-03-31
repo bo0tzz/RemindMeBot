@@ -3,7 +3,7 @@ package me.bo0tzz.remindmebot.reminder;
 /**
  * Created by boet on 30-3-2016.
  */
-public class Reminder implements Comparable {
+public class Reminder implements Comparable<Reminder> {
     private String chatID;
     private String reminder;
     private Long unixTime;
@@ -33,13 +33,10 @@ public class Reminder implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Reminder o) {
         if (o == null) {
             throw new NullPointerException();
         }
-        if (!(o instanceof Reminder)) {
-            throw new ClassCastException();
-        }
-        return unixTime.compareTo(((Reminder) o).getUnixTime());
+        return unixTime.compareTo(o.getUnixTime());
     }
 }
