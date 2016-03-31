@@ -2,8 +2,10 @@ package me.bo0tzz.remindmebot.storage;
 
 import com.google.common.collect.TreeMultiset;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import me.bo0tzz.remindmebot.RemindMeBot;
+import me.bo0tzz.remindmebot.gson.TreeMultisetInstanceCreator;
 import me.bo0tzz.remindmebot.reminder.Reminder;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
@@ -36,7 +38,7 @@ public class StorageHook {
                 instance.debug("Something went wrong while loading the reminder data!");
                 System.exit(1);
             }
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().registerTypeAdapter(new TypeToken<TreeMultiset>(){}.getType(), new TreeMultisetInstanceCreator()).create();
             reminderSet = gson.fromJson(json, new TypeToken<TreeMultiset<Reminder>>(){}.getType());
         } else {
             this.file = new File(".", "reminders.json");
