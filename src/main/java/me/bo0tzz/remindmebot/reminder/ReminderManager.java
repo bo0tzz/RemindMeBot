@@ -30,6 +30,11 @@ public class ReminderManager {
             }
         }, 1000L, 1000L);
     }
+    
+    public void addReminder(Reminder reminder) {
+        reminderMap.put(reminder.getUnixTime(), reminder);
+    }
+
 
     private void check() {
         Long minReminder = Collections.min(reminderMap.keySet());

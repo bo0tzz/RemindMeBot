@@ -62,10 +62,6 @@ public class StorageHook {
         }, 600000L, 600000L);
     }
 
-    public void addReminder(Reminder reminder) {
-        reminderMap.put(reminder.getUnixTime(), reminder);
-    }
-
     public Map<Long, Reminder> getReminderMap() {
         return reminderMap;
     }
