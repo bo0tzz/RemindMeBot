@@ -48,7 +48,7 @@ public class ReminderManager {
         StringBuilder messageBuilder = new StringBuilder("*You have a new reminder!* \n");
 
         if (!(chat instanceof IndividualChat)) {
-            messageBuilder.append("*Reminder set by @" + reminder.getUserID() + "* \n");
+            messageBuilder.append("*Reminder set by* @" + reminder.getUserID() + "\n");
         }
 
         messageBuilder.append("*Reminder:* ").append(reminder.getReminder());
