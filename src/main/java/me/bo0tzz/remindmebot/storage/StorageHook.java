@@ -49,10 +49,8 @@ public class StorageHook {
                 instance.debug("Error creating new reminder data file!");
                 System.exit(1);
             }
-        }
-
-        if (reminderSet == null) {
             reminderSet = TreeMultiset.create();
+            save();
         }
 
         //Create new timer to save reminders to file
