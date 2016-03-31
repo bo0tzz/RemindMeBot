@@ -1,13 +1,12 @@
 package me.bo0tzz.remindmebot.reminder;
 
+import com.google.common.collect.TreeMultiset;
 import me.bo0tzz.remindmebot.RemindMeBot;
 import pro.zackpollard.telegrambot.api.TelegramBot;
 import pro.zackpollard.telegrambot.api.chat.Chat;
 import pro.zackpollard.telegrambot.api.chat.message.send.ParseMode;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableTextMessage;
 
-import java.util.Collections;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,11 +15,11 @@ import java.util.TimerTask;
  */
 public class ReminderManager {
     private final RemindMeBot instance;
-    private final Map<Long, Reminder> reminderMap;
+    private final TreeMultiset<Reminder> reminderSet;
 
     public ReminderManager() {
         this.instance = RemindMeBot.getInstance();
-        this.reminderMap = instance.getStorageHook().getReminderMap();
+        this.reminderSet = instance.getStorageHook().getReminderSet();
 
         //Check for new reminders every second
         new Timer().scheduleAtFixedRate(new TimerTask() {
@@ -32,16 +31,15 @@ public class ReminderManager {
     }
 
     public void addReminder(Reminder reminder) {
-        reminderMap.put(reminder.getUnixTime(), reminder);
+        reminderSet.add(reminder);
     }
 
 
     private void check() {
-        Long minReminder = Collections.min(reminderMap.keySet());
-        if (!(minReminder <= System.currentTimeMillis())) {
+        Reminder reminder = reminderSet.firstEntry().getElement();
+        if (!(reminder.getUnixTime() <= System.currentTimeMillis())) {
             return;
         }
-        Reminder reminder = reminderMap.get(minReminder);
         Chat chat = TelegramBot.getChat(reminder.getChatID());
         StringBuilder messageBuilder = new StringBuilder("*You have a new reminder!* \n");
 
@@ -60,6 +58,7 @@ public class ReminderManager {
                 .build();
 
         instance.getBot().sendMessage(chat, message);
+        reminderSet.remove(reminder);
     }
 
 }

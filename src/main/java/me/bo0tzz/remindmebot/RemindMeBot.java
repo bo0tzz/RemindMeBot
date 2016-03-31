@@ -42,6 +42,10 @@ public class RemindMeBot {
         return storageHook;
     }
 
+    public ReminderManager getReminderManager() {
+        return reminderManager;
+    }
+
     public void sendMessage(Chat chat, String message) {
         bot.sendMessage(chat, SendableTextMessage.builder().message(message).build());
     }

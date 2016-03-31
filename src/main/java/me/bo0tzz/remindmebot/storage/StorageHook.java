@@ -1,5 +1,6 @@
 package me.bo0tzz.remindmebot.storage;
 
+import com.google.common.collect.TreeMultiset;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import me.bo0tzz.remindmebot.RemindMeBot;
@@ -9,10 +10,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by boet on 30-3-2016.
@@ -22,8 +21,7 @@ public class StorageHook {
     private final RemindMeBot instance;
     private boolean retry = false;
 
-    //Map<Unix time, Reminder>
-    private final Map<Long, Reminder> reminderMap;
+    private final TreeMultiset<Reminder> reminderSet;
 
     public StorageHook() {
         this.instance = RemindMeBot.getInstance();
@@ -39,7 +37,7 @@ public class StorageHook {
                 System.exit(1);
             }
             Gson gson = new Gson();
-            reminderMap = gson.fromJson(json, new TypeToken<ConcurrentHashMap<Long, Reminder>>(){}.getType());
+            reminderSet = gson.fromJson(json, new TypeToken<TreeMultiset<Reminder>>(){}.getType());
         } else {
             this.file = new File(".", "reminders.json");
             try {
@@ -49,7 +47,7 @@ public class StorageHook {
                 instance.debug("Error creating new reminder data file!");
                 System.exit(1);
             }
-            reminderMap = new ConcurrentHashMap<>();
+            reminderSet = TreeMultiset.create();
             save();
         }
 
@@ -62,8 +60,8 @@ public class StorageHook {
         }, 600000L, 600000L);
     }
 
-    public Map<Long, Reminder> getReminderMap() {
-        return reminderMap;
+    public TreeMultiset<Reminder> getReminderSet() {
+        return reminderSet;
     }
 
     public void save() {
@@ -78,7 +76,7 @@ public class StorageHook {
             }
         }
         Gson gson = new Gson();
-        String json = gson.toJson(reminderMap);
+        String json = gson.toJson(reminderSet);
         try {
             FileUtils.writeStringToFile(file, json, Charsets.UTF_8);
         } catch (IOException e) {

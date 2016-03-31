@@ -58,7 +58,7 @@ public class RemindMeBotListener implements Listener {
                 event.getChat().getId(),
                 args[1],
                 event.getMessage().getSender().getId());
-        instance.getStorageHook().addReminder(reminder);
+        instance.getReminderManager().addReminder(reminder);
 
         event.getChat().sendMessage(SendableTextMessage.builder()
             .message(String.format("*New reminder added!* \n *Reminded at:* _%s_ \n *Reminder:* _%s_",
