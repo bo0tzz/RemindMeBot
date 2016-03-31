@@ -1,5 +1,6 @@
 package me.bo0tzz.remindmebot;
 
+import me.bo0tzz.remindmebot.api.RemindMeBotListener;
 import me.bo0tzz.remindmebot.reminder.ReminderManager;
 import me.bo0tzz.remindmebot.storage.StorageHook;
 import pro.zackpollard.telegrambot.api.TelegramBot;
@@ -27,9 +28,7 @@ public class RemindMeBot {
         reminderManager = new ReminderManager();
 
         //Save reminder map on shutdown to ensure persistence of reminders
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            storageHook.save();
-        }));
+        Runtime.getRuntime().addShutdownHook(new Thread(storageHook::save));
 
         this.debug("Bot started!");
     }

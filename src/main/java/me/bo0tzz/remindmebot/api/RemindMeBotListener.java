@@ -1,6 +1,7 @@
-package me.bo0tzz.remindmebot;
+package me.bo0tzz.remindmebot.api;
 
 import com.joestelmach.natty.DateGroup;
+import me.bo0tzz.remindmebot.RemindMeBot;
 import me.bo0tzz.remindmebot.reminder.Reminder;
 import me.bo0tzz.remindmebot.util.TimeParser;
 import pro.zackpollard.telegrambot.api.chat.message.send.ParseMode;
