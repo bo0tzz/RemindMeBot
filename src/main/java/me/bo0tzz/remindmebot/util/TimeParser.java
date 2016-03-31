@@ -2,7 +2,6 @@ package me.bo0tzz.remindmebot.util;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
-import me.bo0tzz.remindmebot.RemindMeBot;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

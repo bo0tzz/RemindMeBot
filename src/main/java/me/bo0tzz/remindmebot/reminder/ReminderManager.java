@@ -50,7 +50,7 @@ public class ReminderManager {
         }
         */
 
-        messageBuilder.append("_Reminder:_ " + reminder.getReminder());
+        messageBuilder.append("_Reminder:_ ").append(reminder.getReminder());
 
         SendableTextMessage message = SendableTextMessage.builder()
                 .parseMode(ParseMode.MARKDOWN)
