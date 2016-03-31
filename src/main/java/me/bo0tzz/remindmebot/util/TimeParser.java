@@ -22,7 +22,7 @@ public class TimeParser {
     }
 
     public static String asString(long unixTime) {
-        Date date = new Date(unixTime * 1000);
+        Date date = new Date(unixTime);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss, dd-MMM-yyyy z");
         return sdf.format(date);
     }

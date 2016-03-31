@@ -10,7 +10,7 @@ public class Reminder {
     private long userID;
 
     public Reminder(long unixTime, String chatID, String reminder, long userID) {
-        this.unixTime = unixTime/1000;
+        this.unixTime = unixTime;
         this.chatID = chatID;
         this.reminder = reminder;
         this.userID = userID;
