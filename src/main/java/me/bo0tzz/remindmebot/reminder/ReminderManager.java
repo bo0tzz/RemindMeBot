@@ -4,6 +4,7 @@ import com.google.common.collect.TreeMultiset;
 import me.bo0tzz.remindmebot.RemindMeBot;
 import pro.zackpollard.telegrambot.api.TelegramBot;
 import pro.zackpollard.telegrambot.api.chat.Chat;
+import pro.zackpollard.telegrambot.api.chat.ChatType;
 import pro.zackpollard.telegrambot.api.chat.message.send.ParseMode;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableTextMessage;
 
@@ -44,12 +45,9 @@ public class ReminderManager {
         Chat chat = TelegramBot.getChat(reminder.getChatID());
         StringBuilder messageBuilder = new StringBuilder("*You have a new reminder!* \n");
 
-        /* Not supported by API
-        if (!reminder.getChatID().equals(reminder.getUserID())) {
-            String username = ((IndividualChat)TelegramBot.getChat(reminder.getUserID())).getPartner().getUsername();
-            messageBuilder.append("Reminder set by @" + username);
+        if (chat.getType() == ChatType.GROUP) {
+            messageBuilder.append("Reminder set by @" + reminder.getUserID());
         }
-        */
 
         messageBuilder.append("_Reminder:_ ").append(reminder.getReminder());
 

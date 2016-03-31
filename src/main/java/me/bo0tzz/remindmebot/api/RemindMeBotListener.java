@@ -40,6 +40,10 @@ public class RemindMeBotListener implements Listener {
     }
 
     private void remindMe(CommandMessageReceivedEvent event) {
+        if (event.getArgsString().equals("")) {
+            event.getChat().sendMessage("Give me ", instance.getBot());
+            return;
+        }
         String[] args = event.getArgsString().replace(" to ", " that ").split("that", 2);
 
         if (args.length != 2) {
@@ -57,7 +61,7 @@ public class RemindMeBotListener implements Listener {
                 date.getDates().get(0).getTime(),
                 event.getChat().getId(),
                 args[1],
-                event.getMessage().getSender().getId());
+                event.getMessage().getSender().getUsername());
         instance.getReminderManager().addReminder(reminder);
 
         event.getChat().sendMessage(SendableTextMessage.builder()

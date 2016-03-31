@@ -7,9 +7,9 @@ public class Reminder implements Comparable<Reminder> {
     private String chatID;
     private String reminder;
     private Long unixTime;
-    private Long userID;
+    private String userID;
 
-    public Reminder(Long unixTime, String chatID, String reminder, Long userID) {
+    public Reminder(Long unixTime, String chatID, String reminder, String userID) {
         this.unixTime = unixTime;
         this.chatID = chatID;
         this.reminder = reminder;
@@ -28,7 +28,7 @@ public class Reminder implements Comparable<Reminder> {
         return unixTime;
     }
 
-    public Long getUserID() {
+    public String getUserID() {
         return userID;
     }
 
