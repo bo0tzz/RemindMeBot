@@ -66,6 +66,10 @@ public class StorageHook {
         reminderMap.put(reminder.getUnixTime(), reminder);
     }
 
+    public Map<Long, Reminder> getReminderMap() {
+        return reminderMap;
+    }
+
     public void save() {
         if (!file.exists()) {
             instance.debug("Reminders file not found! Creating file.");

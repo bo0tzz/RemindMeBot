@@ -1,5 +1,6 @@
 package me.bo0tzz.remindmebot;
 
+import me.bo0tzz.remindmebot.reminder.ReminderManager;
 import me.bo0tzz.remindmebot.storage.StorageHook;
 import pro.zackpollard.telegrambot.api.TelegramBot;
 import pro.zackpollard.telegrambot.api.chat.Chat;
@@ -13,6 +14,7 @@ public class RemindMeBot {
     private final TelegramBot bot;
     private static RemindMeBot instance;
     private final StorageHook storageHook;
+    private final ReminderManager reminderManager;
 
     public static void main(String[] args) {
         new RemindMeBot(args[0]);
@@ -24,6 +26,7 @@ public class RemindMeBot {
         bot.getEventsManager().register(new RemindMeBotListener());
         bot.startUpdates(false);
         storageHook = new StorageHook();
+        reminderManager = new ReminderManager();
         this.debug("Bot started!");
     }
 
