@@ -44,7 +44,6 @@ public class RemindMeBotListener implements Listener {
 
         if (args.length != 2) {
             event.getChat().sendMessage("Something went wrong while processing your reminder! Please try again", instance.getBot());
-            instance.debug("args length didn't equal 2 on reminder " + event.getArgsString());
             return;
         }
 
