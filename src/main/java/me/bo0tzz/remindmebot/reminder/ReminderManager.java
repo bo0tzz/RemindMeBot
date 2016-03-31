@@ -25,6 +25,7 @@ public class ReminderManager {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                if (reminderSet.isEmpty()) return;
                 check();
             }
         }, 1000L, 1000L);
