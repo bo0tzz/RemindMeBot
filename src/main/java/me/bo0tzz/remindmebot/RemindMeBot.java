@@ -27,6 +27,12 @@ public class RemindMeBot {
         bot.startUpdates(false);
         storageHook = new StorageHook();
         reminderManager = new ReminderManager();
+
+        //Save reminder map on shutdown to ensure persistence of reminders
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            storageHook.save();
+        }));
+
         this.debug("Bot started!");
     }
 
