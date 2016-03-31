@@ -24,6 +24,8 @@ public class RemindMeBotListener implements Listener {
     public RemindMeBotListener() {
         commandMap = new HashMap<String, Consumer<CommandMessageReceivedEvent>>(){{
             RemindMeBotListener that = RemindMeBotListener.this;
+            put("about", that::about);
+            put("help", that::help);
             put("remindme", that::remindMe);
         }};
 
@@ -37,6 +39,26 @@ public class RemindMeBotListener implements Listener {
 
     public void onCommandMessageReceived(CommandMessageReceivedEvent event) {
         commandMap.getOrDefault(event.getCommand(), (e) -> {}).accept(event);
+    }
+
+    private void about(CommandMessageReceivedEvent event) {
+        event.getChat().sendMessage(SendableTextMessage.builder()
+                        .message("This bot was created by @bo0tzz using the @JavaTelegramBotAPI. The source is available on [GitHub](https://github.com/bo0tzz/RemindMeBot)")
+                        .parseMode(ParseMode.MARKDOWN)
+                        .build()
+                , instance.getBot());
+    }
+
+    private void help(CommandMessageReceivedEvent event) {
+        event.getChat().sendMessage(SendableTextMessage.builder()
+                        .message("This bot allows you to set reminders. The bot will send you a message on the time you specified, with your reminder. You can specify everything in a natural sentence, like so:\n" +
+                                "/remindme on the 2nd of april to call mom\n" +
+                                "/remindme in three hours that I need to start making dinner\n" +
+                                "\n" +
+                                "Make sure to separate the time and the reminder with either \"that\" or \"to\", to make sure the bot can understand which is which. For more information, type /about.")
+                        .parseMode(ParseMode.MARKDOWN)
+                        .build()
+                , instance.getBot());
     }
 
     private void remindMe(CommandMessageReceivedEvent event) {
