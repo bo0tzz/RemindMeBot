@@ -3,8 +3,6 @@ package me.bo0tzz.remindmebot;
 import me.bo0tzz.remindmebot.reminder.ReminderManager;
 import me.bo0tzz.remindmebot.storage.StorageHook;
 import pro.zackpollard.telegrambot.api.TelegramBot;
-import pro.zackpollard.telegrambot.api.chat.Chat;
-import pro.zackpollard.telegrambot.api.chat.message.send.SendableMessage;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableTextMessage;
 
 /**
