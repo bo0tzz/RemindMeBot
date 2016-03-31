@@ -5,6 +5,8 @@ import me.bo0tzz.remindmebot.RemindMeBot;
 import pro.zackpollard.telegrambot.api.TelegramBot;
 import pro.zackpollard.telegrambot.api.chat.Chat;
 import pro.zackpollard.telegrambot.api.chat.ChatType;
+import pro.zackpollard.telegrambot.api.chat.GroupChat;
+import pro.zackpollard.telegrambot.api.chat.IndividualChat;
 import pro.zackpollard.telegrambot.api.chat.message.send.ParseMode;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableTextMessage;
 
@@ -45,11 +47,11 @@ public class ReminderManager {
         Chat chat = TelegramBot.getChat(reminder.getChatID());
         StringBuilder messageBuilder = new StringBuilder("*You have a new reminder!* \n");
 
-        if (chat.getType() == ChatType.GROUP) {
-            messageBuilder.append("Reminder set by @" + reminder.getUserID());
+        if (!(chat instanceof IndividualChat)) {
+            messageBuilder.append("*Reminder set by @" + reminder.getUserID() + "* \n");
         }
 
-        messageBuilder.append("_Reminder:_ ").append(reminder.getReminder());
+        messageBuilder.append("*Reminder:* ").append(reminder.getReminder());
 
         SendableTextMessage message = SendableTextMessage.builder()
                 .parseMode(ParseMode.MARKDOWN)
