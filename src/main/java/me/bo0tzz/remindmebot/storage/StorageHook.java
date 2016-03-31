@@ -59,7 +59,7 @@ public class StorageHook {
             public void run() {
                 save();
             }
-        }, 600000L, 600000L);
+        }, 10000L, 10000L);
     }
 
     public TreeMultiset<Reminder> getReminderSet() {
