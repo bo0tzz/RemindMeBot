@@ -46,14 +46,6 @@ public class RemindMeBot {
         return reminderManager;
     }
 
-    public void sendMessage(Chat chat, String message) {
-        bot.sendMessage(chat, SendableTextMessage.builder().message(message).build());
-    }
-
-    public void sendMessage(Chat chat, SendableMessage message) {
-        bot.sendMessage(chat, message);
-    }
-
     public void debug(String debug) {
         bot.sendMessage(TelegramBot.getChat("97824825"), SendableTextMessage.builder().message(debug).build());
     }
