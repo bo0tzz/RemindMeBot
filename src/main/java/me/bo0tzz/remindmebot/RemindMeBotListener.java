@@ -1,12 +1,12 @@
 package me.bo0tzz.remindmebot;
 
 import com.joestelmach.natty.DateGroup;
+import me.bo0tzz.remindmebot.reminder.Reminder;
 import me.bo0tzz.remindmebot.util.TimeParser;
 import pro.zackpollard.telegrambot.api.chat.message.send.ParseMode;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableTextMessage;
 import pro.zackpollard.telegrambot.api.event.Listener;
 import pro.zackpollard.telegrambot.api.event.chat.inline.InlineQueryReceivedEvent;
-import pro.zackpollard.telegrambot.api.event.chat.inline.InlineResultChosenEvent;
 import pro.zackpollard.telegrambot.api.event.chat.message.CommandMessageReceivedEvent;
 
 import java.util.HashMap;

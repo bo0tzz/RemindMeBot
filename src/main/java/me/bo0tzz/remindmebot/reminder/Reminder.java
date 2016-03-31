@@ -1,4 +1,4 @@
-package me.bo0tzz.remindmebot;
+package me.bo0tzz.remindmebot.reminder;
 
 /**
  * Created by boet on 30-3-2016.

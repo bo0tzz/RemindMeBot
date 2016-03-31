@@ -3,7 +3,7 @@ package me.bo0tzz.remindmebot.storage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import me.bo0tzz.remindmebot.RemindMeBot;
-import me.bo0tzz.remindmebot.Reminder;
+import me.bo0tzz.remindmebot.reminder.Reminder;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
