@@ -34,9 +34,6 @@ public class Reminder implements Comparable<Reminder> {
 
     @Override
     public int compareTo(Reminder o) {
-        if (o == null) {
-            throw new NullPointerException();
-        }
-        return unixTime.compareTo(o.getUnixTime());
+        return o != null && unixTime.compareTo(o.getUnixTime());
     }
 }
