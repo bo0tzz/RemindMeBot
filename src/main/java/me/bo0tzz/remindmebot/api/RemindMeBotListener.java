@@ -8,6 +8,7 @@ import pro.zackpollard.telegrambot.api.chat.message.send.ParseMode;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableTextMessage;
 import pro.zackpollard.telegrambot.api.event.Listener;
 import pro.zackpollard.telegrambot.api.event.chat.inline.InlineQueryReceivedEvent;
+import pro.zackpollard.telegrambot.api.event.chat.inline.InlineResultChosenEvent;
 import pro.zackpollard.telegrambot.api.event.chat.message.CommandMessageReceivedEvent;
 
 import java.util.HashMap;
@@ -87,7 +88,7 @@ public class RemindMeBotListener implements Listener {
         instance.getReminderManager().addReminder(reminder);
 
         event.getChat().sendMessage(SendableTextMessage.builder()
-            .message(String.format("*New reminder added!* \n *Reminded at:* _%s_ \n *Reminder:* _%s_",
+            .message(String.format("*New reminder added!* \n*Reminded at:* _%s_ \n*Reminder:* _%s_",
                     TimeParser.asString(reminder.getUnixTime()),
                     reminder.getReminder()))
             .replyTo(event.getMessage())
