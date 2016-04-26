@@ -50,6 +50,6 @@ public class RemindMeBot {
     }
 
     public void debug(String debug) {
-        bot.sendMessage(TelegramBot.getChat("97824825"), SendableTextMessage.builder().message(debug).build());
+        bot.getChat("97824825").sendMessage(SendableTextMessage.builder().message(debug).build());
     }
 }

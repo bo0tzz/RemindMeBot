@@ -44,7 +44,7 @@ public class ReminderManager {
         if (!(reminder.getUnixTime() <= System.currentTimeMillis())) {
             return;
         }
-        Chat chat = TelegramBot.getChat(reminder.getChatID());
+        Chat chat = instance.getBot().getChat(reminder.getChatID());
         StringBuilder messageBuilder = new StringBuilder("*You have a new reminder!* \n");
 
         if (!(chat instanceof IndividualChat)) {

@@ -8,7 +8,6 @@ import pro.zackpollard.telegrambot.api.chat.message.send.ParseMode;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableTextMessage;
 import pro.zackpollard.telegrambot.api.event.Listener;
 import pro.zackpollard.telegrambot.api.event.chat.inline.InlineQueryReceivedEvent;
-import pro.zackpollard.telegrambot.api.event.chat.inline.InlineResultChosenEvent;
 import pro.zackpollard.telegrambot.api.event.chat.message.CommandMessageReceivedEvent;
 
 import java.util.HashMap;
@@ -47,7 +46,7 @@ public class RemindMeBotListener implements Listener {
                         .message("This bot was created by @bo0tzz using the @JavaTelegramBotAPI. The source is available on [GitHub](https://github.com/bo0tzz/RemindMeBot)")
                         .parseMode(ParseMode.MARKDOWN)
                         .build()
-                , instance.getBot());
+                );
     }
 
     private void help(CommandMessageReceivedEvent event) {
@@ -59,24 +58,24 @@ public class RemindMeBotListener implements Listener {
                                 "Make sure to separate the time and the reminder with either \"that\" or \"to\", to make sure the bot can understand which is which. For more information, type /about.")
                         .parseMode(ParseMode.MARKDOWN)
                         .build()
-                , instance.getBot());
+                );
     }
 
     private void remindMe(CommandMessageReceivedEvent event) {
         if (event.getArgsString().equals("")) {
-            event.getChat().sendMessage("Give me ", instance.getBot());
+            event.getChat().sendMessage("Give me ");
             return;
         }
         String[] args = event.getArgsString().replace(" to ", " that ").split("that", 2);
 
         if (args.length != 2) {
-            event.getChat().sendMessage("Something went wrong while processing your reminder! Please try again", instance.getBot());
+            event.getChat().sendMessage("Something went wrong while processing your reminder! Please try again");
             return;
         }
 
         DateGroup date = TimeParser.parse(args[0]);
         if (date == null) {
-            event.getChat().sendMessage("It seems that the time you entered doesn't make sense. Please try again!", instance.getBot());
+            event.getChat().sendMessage("It seems that the time you entered doesn't make sense. Please try again!");
             return;
         }
 
@@ -93,6 +92,6 @@ public class RemindMeBotListener implements Listener {
                     reminder.getReminder()))
             .replyTo(event.getMessage())
             .parseMode(ParseMode.MARKDOWN)
-            .build(), instance.getBot());
+            .build());
     }
 }
