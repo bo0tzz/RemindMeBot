@@ -2,16 +2,12 @@ package me.bo0tzz.remindmebot.reminder;
 
 import com.google.common.collect.TreeMultiset;
 import me.bo0tzz.remindmebot.RemindMeBot;
-import pro.zackpollard.telegrambot.api.TelegramBot;
 import pro.zackpollard.telegrambot.api.chat.Chat;
-import pro.zackpollard.telegrambot.api.chat.ChatType;
-import pro.zackpollard.telegrambot.api.chat.GroupChat;
 import pro.zackpollard.telegrambot.api.chat.IndividualChat;
 import pro.zackpollard.telegrambot.api.chat.message.send.ParseMode;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableTextMessage;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * Created by boet on 31-3-2016.
@@ -19,10 +15,17 @@ import java.util.TimerTask;
 public class ReminderManager {
     private final RemindMeBot instance;
     private final TreeMultiset<Reminder> reminderSet;
+    private final Map<String, PriorityQueue<Reminder>> userReminders;
 
     public ReminderManager() {
         this.instance = RemindMeBot.getInstance();
         this.reminderSet = instance.getStorageHook().getReminderSet();
+
+        userReminders = new HashMap<>();
+        reminderSet.forEach((reminder -> {
+            PriorityQueue<Reminder> q = userReminders.getOrDefault(reminder.getUserName(), new PriorityQueue<>());
+            q.add(reminder);
+        }));
 
         //Check for new reminders every second
         new Timer().scheduleAtFixedRate(new TimerTask() {
@@ -48,7 +51,7 @@ public class ReminderManager {
         StringBuilder messageBuilder = new StringBuilder("*You have a new reminder!* \n");
 
         if (!(chat instanceof IndividualChat)) {
-            messageBuilder.append("*Reminder set by* @" + reminder.getUserID() + "\n");
+            messageBuilder.append("*Reminder set by* @" + reminder.getUserName() + "\n");
         }
 
         messageBuilder.append("*Reminder:* ").append(reminder.getReminder());
@@ -60,6 +63,10 @@ public class ReminderManager {
 
         instance.getBot().sendMessage(chat, message);
         reminderSet.remove(reminder);
+    }
+
+    public PriorityQueue<Reminder> getUserReminders(String userID) {
+        return userReminders.get(userID);
     }
 
 }

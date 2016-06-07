@@ -4,16 +4,16 @@ package me.bo0tzz.remindmebot.reminder;
  * Created by boet on 30-3-2016.
  */
 public class Reminder implements Comparable<Reminder> {
-    private String chatID;
-    private String reminder;
-    private Long unixTime;
-    private String userID;
+    private final String chatID;
+    private final String reminder;
+    private final Long unixTime;
+    private final String userName;
 
-    public Reminder(Long unixTime, String chatID, String reminder, String userID) {
+    public Reminder(Long unixTime, String chatID, String reminder, String userName) {
         this.unixTime = unixTime;
         this.chatID = chatID;
         this.reminder = reminder;
-        this.userID = userID;
+        this.userName = userName;
     }
 
     public String getChatID() {
@@ -28,8 +28,8 @@ public class Reminder implements Comparable<Reminder> {
         return unixTime;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserName() {
+        return userName;
     }
 
     @Override
