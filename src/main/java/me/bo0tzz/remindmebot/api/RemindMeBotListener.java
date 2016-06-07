@@ -66,7 +66,13 @@ public class RemindMeBotListener implements Listener {
             event.getChat().sendMessage("Give me ");
             return;
         }
-        String[] args = event.getArgsString().replaceFirst(" to ", " that ").split("that", 2);
+
+        String str = event.getArgsString();
+        int idx, idx2 = -1;
+        if ((idx = str.indexOf(" to ")) != -1 && idx < (idx2 = str.indexOf(" that ")) || idx2 == -1) {
+            str = str.replaceFirst(" to ", " that ");
+        }
+        String[] args = str.split("that", 2);
 
         if (args.length != 2) {
             event.getChat().sendMessage("Something went wrong while processing your reminder! Please try again");
