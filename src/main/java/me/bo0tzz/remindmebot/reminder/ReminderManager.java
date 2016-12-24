@@ -43,26 +43,28 @@ public class ReminderManager {
 
 
     private void check() {
-        Reminder reminder = reminderSet.firstEntry().getElement();
-        if (!(reminder.getUnixTime() <= System.currentTimeMillis())) {
-            return;
+        while (true) {
+            Reminder reminder = reminderSet.firstEntry().getElement();
+            if (!(reminder.getUnixTime() <= System.currentTimeMillis())) {
+                return;
+            }
+            Chat chat = instance.getBot().getChat(reminder.getChatID());
+            StringBuilder messageBuilder = new StringBuilder("*You have a new reminder!* \n");
+
+            if (!(chat instanceof IndividualChat)) {
+                messageBuilder.append("*Reminder set by* @" + reminder.getUserName() + "\n");
+            }
+
+            messageBuilder.append("*Reminder:* ").append(reminder.getReminder());
+
+            SendableTextMessage message = SendableTextMessage.builder()
+                    .parseMode(ParseMode.MARKDOWN)
+                    .message(messageBuilder.toString())
+                    .build();
+
+            instance.getBot().sendMessage(chat, message);
+            reminderSet.remove(reminder);
         }
-        Chat chat = instance.getBot().getChat(reminder.getChatID());
-        StringBuilder messageBuilder = new StringBuilder("*You have a new reminder!* \n");
-
-        if (!(chat instanceof IndividualChat)) {
-            messageBuilder.append("*Reminder set by* @" + reminder.getUserName() + "\n");
-        }
-
-        messageBuilder.append("*Reminder:* ").append(reminder.getReminder());
-
-        SendableTextMessage message = SendableTextMessage.builder()
-                .parseMode(ParseMode.MARKDOWN)
-                .message(messageBuilder.toString())
-                .build();
-
-        instance.getBot().sendMessage(chat, message);
-        reminderSet.remove(reminder);
     }
 
     public PriorityQueue<Reminder> getUserReminders(String userID) {

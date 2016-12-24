@@ -10,8 +10,7 @@ import pro.zackpollard.telegrambot.api.event.Listener;
 import pro.zackpollard.telegrambot.api.event.chat.inline.InlineQueryReceivedEvent;
 import pro.zackpollard.telegrambot.api.event.chat.message.CommandMessageReceivedEvent;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -19,6 +18,7 @@ import java.util.function.Consumer;
  */
 public class RemindMeBotListener implements Listener {
     private final Map<String, Consumer<CommandMessageReceivedEvent>> commandMap;
+    private Map<String, Reminder> inlineReminders; //Inline Query ID, Reminder
     private final RemindMeBot instance;
 
     public RemindMeBotListener() {
@@ -29,12 +29,35 @@ public class RemindMeBotListener implements Listener {
             put("remindme", that::remindMe);
         }};
 
+        this.inlineReminders = new HashMap<>();
         this.instance = RemindMeBot.getInstance();
     }
 
     @Override
     public void onInlineQueryReceived(InlineQueryReceivedEvent event) {
-     //Do inline shit
+        /*  Not possible until I design a fix for lack of chat to send to
+        if (event.getQuery().getQuery().equals("")) {
+            return;
+        }
+
+        String str = event.getQuery().getQuery();
+        int idx, idx2 = -1;
+        if ((idx = str.indexOf(" to ")) != -1 && idx < (idx2 = str.indexOf(" that ")) || idx2 == -1) {
+            str = str.replaceFirst(" to ", " that ");
+        }
+        String[] args = str.split("that", 2);
+
+        DateGroup date = TimeParser.parse(args[0]);
+        if (date == null) {
+            return;
+        }
+
+        Reminder reminder = new Reminder(
+                date.getDates().get(0).getTime(),
+                String.valueOf(event.getQuery().getSender().getId()),
+                args[1],
+                event.getQuery().getSender().getUsername());
+                */
     }
 
     public void onCommandMessageReceived(CommandMessageReceivedEvent event) {
@@ -100,4 +123,5 @@ public class RemindMeBotListener implements Listener {
             .parseMode(ParseMode.MARKDOWN)
             .build());
     }
+
 }
