@@ -90,6 +90,7 @@ public class RemindMeBotListener implements Listener {
             return;
         }
 
+        //IF YOU FIX THIS ABOMINATION I WILL LOVE YOU FOREVER
         String str = event.getArgsString();
         int idx, idx2 = -1;
         if ((idx = str.indexOf(" to ")) != -1 && idx < (idx2 = str.indexOf(" that ")) || idx2 == -1) {

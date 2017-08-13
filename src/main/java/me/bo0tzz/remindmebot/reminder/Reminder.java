@@ -8,6 +8,13 @@ public class Reminder implements Comparable<Reminder> {
     private final String reminder;
     private final Long unixTime;
     private final String userName;
+    private String UUID;
+
+
+    public Reminder(Long unixTime, String chatID, String reminder, String userName, String UUID) {
+        this(unixTime,chatID,reminder,userName);
+        this.UUID = UUID;
+    }
 
     public Reminder(Long unixTime, String chatID, String reminder, String userName) {
         this.unixTime = unixTime;
@@ -30,6 +37,10 @@ public class Reminder implements Comparable<Reminder> {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getUUID() {
+        return UUID;
     }
 
     @Override
