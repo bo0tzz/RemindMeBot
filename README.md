@@ -30,4 +30,5 @@ The bot can remind you _to_ do something or _that_ you need to do something. It 
 
 
 You can find this bot on Telegram at [@RemindMe_Bot](http://t.me/RemindMe_Bot), or compile it yourself with `mvn clean package`
+
 Makes use of the [JavaTelegramBot-API](https://github.com/zackpollard/JavaTelegramBot-API).
