@@ -16,7 +16,11 @@ public class RemindMeBot {
     private final ReminderManager reminderManager;
 
     public static void main(String[] args) {
-        new RemindMeBot(args[0]);
+        String key = System.getenv("BOT_KEY");
+        if (key == null || key.equals("")) {
+            key = args[0];
+        }
+        new RemindMeBot(key);
     }
 
     private RemindMeBot(String key) {
