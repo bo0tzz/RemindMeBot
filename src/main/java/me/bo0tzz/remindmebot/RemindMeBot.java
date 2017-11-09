@@ -6,6 +6,8 @@ import me.bo0tzz.remindmebot.storage.StorageHook;
 import pro.zackpollard.telegrambot.api.TelegramBot;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableTextMessage;
 
+import java.util.TimeZone;
+
 /**
  * Created by boet on 30-3-2016.
  */
@@ -24,6 +26,7 @@ public class RemindMeBot {
     }
 
     private RemindMeBot(String key) {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         instance = this;
         this.bot = TelegramBot.login(key);
         bot.getEventsManager().register(new RemindMeBotListener());
