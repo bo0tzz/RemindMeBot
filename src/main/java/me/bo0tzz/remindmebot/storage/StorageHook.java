@@ -53,6 +53,8 @@ public class StorageHook {
             save();
         }
 
+        this.registerShutdownHook();
+
         //Create new timer to save reminders to file
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -60,6 +62,19 @@ public class StorageHook {
                 save();
             }
         }, 10000L, 10000L);
+    }
+
+    private void registerShutdownHook() {
+        final Thread mainThread = Thread.currentThread();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            save();
+            try {
+                mainThread.join();
+            } catch (InterruptedException e) {
+                instance.debug("Failed to finalize shutdown hook!");
+                e.printStackTrace();
+            }
+        }));
     }
 
     public TreeMultiset<Reminder> getReminderSet() {
